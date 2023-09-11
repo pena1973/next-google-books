@@ -1,0 +1,105 @@
+
+.catalog_show_block {
+    float: left;
+    display: flex;
+    flex-direction: row;
+    padding-left: 76px;
+    width: 100%;
+    max-width: 500px;
+    height: 327px;
+
+    /* background-color: rgb(21, 67, 194); */
+    align-items: center;
+    margin-bottom: 75px;
+}
+
+.catalog_show_block_frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 327px;
+    width: 212px;
+    background-color: rgba(92, 106, 121, 1);
+
+}
+
+.catalog_show_block_img {
+    /* height: 327px;
+    width: 212px; */
+    height: 325px;
+    width: 210px;
+    max-width: 210px;
+    max-height: 325px;
+}
+
+.catalog_show_block_info {
+    display: flex;
+    flex-direction: column;
+    padding-left: 36px;
+}
+
+.catalog_show_block_info_autor {
+    font-family: 'Open Sans', sans-serif;
+    margin: 20px 0 0 0;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 14px;
+    color: rgba(92, 106, 121, 1);
+}
+
+.catalog_show_block_info_name {
+    margin: 4px 0 0 0;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 20px;
+    color: rgba(28, 42, 57, 1);
+}
+
+.catalog_show_block_info_esteeme {
+    display: flex;
+    flex-direction: row;
+    margin: 4px 0 0 0;
+    align-items: center;
+}
+
+.catalog_show_block_info_esteeme_review {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 14px;
+    margin: 0 0 0 6px;
+    color: rgba(92, 106, 121, 1);
+}
+
+.catalog_show_block_info_description {
+    margin: 16px 0 0 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 14px;
+    color: rgba(92, 106, 121, 1);
+}
+
+.catalog_show_block_info_price {
+    margin: 16px 0 0 0;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    font-style: oblique;
+    text-transform: uppercase;
+}
+
+.catalog_show_block_info_btn {
+    margin: 16px 0 0 0;
+    height: 45px;
+    width: 176px;
+    border: 1px solid rgba(76, 61, 178, 1);
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 10px;
+    cursor: pointer;
+}
+.card_table_rate_star {
+    width: 12px;
+    height: 12px;
+}

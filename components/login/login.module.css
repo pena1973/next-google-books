@@ -1,0 +1,77 @@
+
+.header_login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 241px;
+    height: 312px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 70px;
+    right: 150px;
+}
+
+.header_login_title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    color: rgba(28, 42, 57, 1);
+}
+.label {
+    align-self: start;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 1);
+    padding-left: 28px;
+    margin: 7px;
+}
+
+.login_input {
+    width: 176px;
+    height: 35px;
+    border: 1px solid rgba(76, 61, 178, 1);
+    margin: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    color: rgba(76, 61, 178, 1);
+}
+.login_input::placeholder {
+    color: rgba(76, 61, 178, 1);
+}
+.pass_input {
+    width: 176px;
+    height: 35px;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 53, 58, 1);
+    margin: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    color: rgba(255, 53, 58, 1);
+}
+.pass_input::placeholder {
+    color: rgba(255, 53, 58, 1);
+}
+
+.header_login_note {
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 10px;
+    color: rgba(255, 53, 58, 1);
+}
+
+.login-button {
+    width: 176px;
+    height: 32px;
+    background: rgba(158, 152, 220, 1);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(158, 152, 220, 1);
+    margin: 20px;
+}
+

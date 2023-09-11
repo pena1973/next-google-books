@@ -1,0 +1,20 @@
+.header_nav {
+    list-style: none;
+    display: flex;
+    width: 372px;
+    justify-content: space-between;
+}
+
+.header_nav_item.active a {
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 12px;
+    color: rgba(92, 106, 121, 1);
+}
+
+.header_nav_item a {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12px;
+    color: rgba(92, 106, 121, 1);
+}
