@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Item } from '@/pages/store/slices';
-import { error } from 'console';
 
 type RawItem = {
     id: string,
@@ -28,10 +27,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     //  загруз книг по 6 и  выдача 
     const { subject, page } = req.query;
-    //  if (!req.query.subject) {
-        
-    //     // если категория вообще не указана выдаем ошибку
-    //     // а если без категории то так явно и пишем
+    // На пропущеную категорию не прроеряю поскольку 
+    // апи вообще не смотрит на категорию при загрузке, и получается ерунда
+    //  if (!req.query.subject) {        
     //      res.status(400).send({
     //          error: true,
     //          message: 'No subject in query params'
@@ -50,16 +48,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const res1 = await fetch(`https://www.googleapis.com/books/v1/volumes?${gbooksReqParams.toString()}`)
     const requestResult = await res1.json();
 
-    // немножко обработаю результат
+    // немножко обработаю результат перед тем как выдать
     let newItems = <RawItem[]> requestResult.items;
-    // если результат не удался ВЫДАЮ ОШИБКУ
-    if (!newItems) 
-     res.status(400).send({ error: true,  message: 'QUERRY FALL'}); 
     
-    let categories:string[] = [];
-    let books:Item[] = [];
+    // если результат не удался ВЫДАЮ ОШИБКУ
+    if (!newItems) res.status(400).send({ error: true,  message: 'QUERRY FALL'}); 
     
     // обрабатываю
+    let categories:string[] = []; // весь каталог
+    let books:Item[] = [];        // состав текущей категории
+   
+    // из апи вылетают дубли,
+    // а потом это приводит к тому что 
+    // Key элементов не уникальный и все двоится на форме
+    // поэтому я отсекаю те книги которые уже есть в скачанном каталоге ранее
+    
     for (let index = 0; index < newItems.length; index++) {
         const element = newItems[index];
         // если дуюль пропускаю
@@ -77,32 +80,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             url: "",
             categories:[],};
 
-
         item.id = element?.id;
 
-        // let selfLink = element?.selfLink;
-        //название
+        //название укоротим
         let title = element?.volumeInfo?.title;
         item.name = (title.length > 40) ? title.slice(0, 40) + '...' : title;
-        // описание
+        // описание укоротим
         let description = (!element?.volumeInfo?.subtitle) ? '' : element?.volumeInfo?.subtitle;
         item.description = (description.length > 100) ? description.slice(0, 100) + '...' : description;
-        // авторы в строку
+        // авторы запишем в строку
         let authorsArray = element?.volumeInfo?.authors;
         item.autor = '';
         if (authorsArray) {
             item.autor = authorsArray.join(',');
         }
-        // обложка ссылка если нет заменяю на свою картинку
-        item.url = (!element?.volumeInfo?.imageLinks?.smallThumbnail) ? './images/book.jpg' : element?.volumeInfo?.imageLinks?.smallThumbnail;
+        // обложка ссылка если ее нет заменяю на свою картинку
+        item.url = (!element?.volumeInfo?.imageLinks?.smallThumbnail) ? '/book.jpg' : element?.volumeInfo?.imageLinks?.smallThumbnail;
         
         // оценку в ответе апи не нашла
         item.stars = -1;
         // отзывы заменила страницами книги 
         item.review = (!element?.volumeInfo?.pageCount) ? -1 : element?.volumeInfo?.pageCount;
-        //цена и валюта
-        let price = -1;
-        let currency = '';
+        //цена и валюта        
         if (element?.saleInfo?.saleability != "NOT_FOR_SALE") {
             item.price = (!element?.saleInfo?.retailPrice?.amount) ? -1 : element?.saleInfo?.retailPrice?.amount;            
             item.currency = (!element?.saleInfo?.retailPrice?.currencyCode) ? '' : element?.saleInfo?.retailPrice?.currencyCode;            
@@ -110,18 +109,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         item.categories = element?.volumeInfo?.categories;
         
-        if (!item.categories) {            
+        if (item.categories.length==0) {            
             item.categories = ['Whithout category']
-        }
-        else
+        } 
         
-        item.categories.forEach(category => {if (!categories.includes(category)) categories.push(category); });
+        item.categories.forEach(category => {
+            if (!categories.includes(category)) 
+            categories.push(category);
+        });
         
-        
-        books.push(item);  
-   
+        books.push(item);    
     };   
-    res.status(200).send( {error: false,  books: books,categories:categories})
+
+    res.status(200).send( {error: false,  books: books, categories:categories})
 }
 
 

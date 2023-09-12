@@ -1,39 +1,54 @@
 
 import styles from "./login.module.css";
 import { useRouter } from 'next/navigation';
+import { setMail, setName, setAbout, setPass } from '@/pages/store/slices';
+import { useAppDispatch } from "@/pages/_app";
 
 export interface LoginProps {
-  handleLoginClick: ()=>void,  
+  handleLoginClick: () => void,
 }
+
 export default function Login(
-  { handleLoginClick}: LoginProps
+  { handleLoginClick }: LoginProps
 ) {
   const { push } = useRouter();
-
+  const dispatch = useAppDispatch();
   'use client'
   const handleClick = async function (e: React.MouseEvent<HTMLElement>) {
-    
+
     // приведение типа    
     let login = (e.currentTarget.parentElement?.children[2] as HTMLInputElement).value;
     let pass = (e.currentTarget.parentElement?.children[4] as HTMLInputElement).value;
 
-    
-    const res = await fetch(`http://localhost:3000/api/auth?email=${login}&password=${pass}`);
+    const res = await fetch("http://localhost:3000/api/auth", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({ 'email': login, 'password': pass }),
+    });
+
     if (res.status !== 200) {
-      push('/404');
+      // push('/404');  
 
     } else {
       const receivedData = await res.json();
       if (!receivedData.error) {
-        localStorage.setItem('token', receivedData.token);
-        push(`/profile`);}
-        else{
-         push('/404');
-        }
+        // если  успешно сохраняем в персист идем в профиль
+        dispatch(setMail(receivedData.mail));
+        dispatch(setName(receivedData.name));
+        dispatch(setAbout(receivedData.about));
+        dispatch(setPass(receivedData.pass));
+        push(`/profile`);
       }
-      handleLoginClick();
+      else {
+        // push('/404');
+      }
     }
-  
+    handleLoginClick();
+  }
+
 
   return (
     <div className={styles.header_login}>

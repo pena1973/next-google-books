@@ -811,3 +811,10 @@ padding: 10px;
     align-items: center;
     margin: -630px;
 }
+
+.empty_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    margin: -630px;  
+}

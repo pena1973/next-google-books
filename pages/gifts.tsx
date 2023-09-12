@@ -5,7 +5,7 @@ import Slider from "@/components/slider/slider";
         return (
           <Layout>
             <Slider/>
-            гифт
+            <div className="empty_page">гифт</div>             
           </Layout>
         )
     }

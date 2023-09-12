@@ -5,7 +5,7 @@ import { ItemInCard } from '@/pages/store/slices'
 import { useSelector } from 'react-redux';
 import { setTotal, setQuantity, setCard } from '@/pages/store/slices';
 import { RootState, useAppDispatch } from "@/pages/_app";
-import { recountCard, addtoCard, deletefromCard } from '@/pages/store/util'
+import { recountCard, addtoCard, deletefromCard, sortCard } from '@/pages/store/util'
 
 let card = [
   {
@@ -65,8 +65,8 @@ export default function Card(
     const itemInCard = card.find((element) => { return (element?.book.id == id) });
     if (!itemInCard) return
 
-    let newCard = addtoCard(card, itemInCard.book)
-    dispatch(setCard(newCard))
+    let newCard = addtoCard(card, itemInCard.book)    
+    dispatch(setCard(sortCard(newCard)));
     const { quantity, total } = recountCard(newCard);
     dispatch(setQuantity(quantity));
     dispatch(setTotal(total));
@@ -80,7 +80,7 @@ export default function Card(
     if (!itemInCard) return
 
     let newCard = deletefromCard(card, itemInCard.book)
-    dispatch(setCard(newCard))
+    dispatch(setCard(sortCard(newCard)))
     const { quantity, total } = recountCard(newCard);
     dispatch(setQuantity(quantity));
     dispatch(setTotal(total));
@@ -88,7 +88,7 @@ export default function Card(
   }
 
   let cardReactNodes = card.map(element => (
-    <tr className="card-row">
+    <tr className="card-row" key={element.book.id}>
       <td className="card-table-td">
         <div className="card-table-td-item">
           <Image className="card-table-img-item" src={element.book.url} alt={element.book.url} width={100} height={145} />
@@ -114,7 +114,7 @@ export default function Card(
         </div>
       </td>
       <td className="card-table-td">
-        <p className="card-table-price">${element.book.currency} ${element.book.price}</p>
+        <p className="card-table-price">{element.book.currency} {element.book.price}</p>
       </td>
       <td className="card-table-td">
         <p className="card-table-delivery">{element.delivery} delivery</p>
@@ -141,7 +141,7 @@ export default function Card(
           </tbody>
         </table>
 
-        <div className="card-total-price">TOTAL PRICE: ${total}</div>
+        <div className="card-total-price">TOTAL PRICE: {total}</div>
 
         <button className="card-button-checkout">CHECKOUT</button>
       </section>

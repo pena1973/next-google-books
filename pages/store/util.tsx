@@ -5,18 +5,59 @@ import { Item, ItemInCard } from '@/pages/store/slices';
 
 export function recountCard(card: ItemInCard[]) {
 
-
     let total = 0;
     let quantity = 0;
     card.forEach((el) => {
-        total = total + el.count * el.book.price;
-        quantity = quantity + el.count;
+        total= total + (el.count * el.book.price);
+        quantity= quantity + el.count;
     })
+
+
     return {
         quantity: quantity,
-        total: total
+        total: rounded(total)
     }
+}
 
+const rounded = function(number:number){
+    return +number.toFixed(2);
+}
+
+export function sortCard(card: ItemInCard[]) {
+
+    card.sort((a, b) => {
+        const idA = a.book.id;
+        const idB = b.book.id;
+        if (idA > idB) {
+          return -1;
+        }
+        if (idA < idB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
+      })
+
+    return card;
+}
+
+export function sortCatalog(items: Item[]) {
+
+    items.sort((a, b) => {
+        const idA = a.id;
+        const idB = b.id;
+        if (idA > idB) {
+          return -1;
+        }
+        if (idA < idB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
+      })
+
+
+    return items;
 }
 
 export function addtoCard(card: ItemInCard[], book: Item) {

@@ -1,55 +1,49 @@
+import { Montserrat } from 'next/font/google';
 import Image from 'next/image'
 import { PropsWithChildren } from "react";
 import Link from 'next/link';
 import styles from "./layout.module.css";
 import Head from "next/head";
-import { redirect, useRouter } from 'next/navigation';
+import {useRouter } from 'next/navigation';
+import { RootState } from "@/pages/_app";
 
-import { usePathname } from 'next/navigation'
 import Navigation from "../navigation/navigation";
 import Login from "../login/login";
-import { useContext, useEffect, useState } from "react";
+import {useState } from "react";
 import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from "@/pages/_app";
+
+// не понимаю где в своем проекте я могу это применить если все шрифты расставлены в стилях и они разные
+  const font = Montserrat({
+    weight: ["400","500","600","700"],
+    subsets: ["latin", "cyrillic"],
+})
 
 export default function Layout({ children }: PropsWithChildren) {
-  const { push } = useRouter();
+  const { push } = useRouter();  
   const [loginState, setLoginState] = useState(false);
-  // const pathname = usePathname();
   
   const quantity = useSelector((state: RootState) => {    
     return state.cardSlice.quantity;
   })
 
+  const mail = useSelector((state: RootState) => {    
+    return state.authSlice.mail;
+  })
+  const pass = useSelector((state: RootState) => {    
+    return state.authSlice.pass;
+  })
   const handleLoginClick = () => {
     setLoginState(false);
   }
 
-  const handleClick = async () => {
-    const login = localStorage.getItem('login');
-    const pass = localStorage.getItem('pass');    
-    // localStorage.clear()
-    //  беру пароль и логин из хран и  получаю токен(он живет час), ели токен пришел  -  кладу в  хранилище и редирект на профиль   
-    //   если токен не получен  -  стою на странице и открываю форму логина
+  const handleClick = () => {
 
-    if ((!login) || (!pass)) { setLoginState(!loginState); return };
+    //  если пароль и логин есть хран - перехожу в профиль 
+    //   если нет открываю форму логина
 
+    if ((mail !== undefined) && (pass !==undefined)) { setLoginState(!loginState);  push(`/profile`); };
 
-    const res = await fetch(`http://localhost:3000/api/auth?email=${login}&password=${pass}`);
-
-    if (res.status == 200) {
-
-      const receivedData = await res.json();
-      if (!receivedData.error) {
-        localStorage.setItem('token', receivedData.token);
-        push(`/profile`);
-      } else {
-        setLoginState(!loginState);
-      }
-    } else {
-      setLoginState(!loginState);
-    }
-  }
+    setLoginState(!loginState);}
 
   return (
     <>
@@ -57,16 +51,14 @@ export default function Layout({ children }: PropsWithChildren) {
         <title>Bookshop</title>
         <meta name="description" content="Bookshop Next.js project" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
+        
       </Head>
       <header className="header container">
         <Link href="/" className={styles.header_logo}>Bookshop</Link>
         <Navigation />
 
-        <div className={styles.header_icons}>
-          {/* <Link className={styles.header_icons_item_user} href="/profile">
-            <Image src={userSVG} alt="./images/user.svg" />
-          </Link> */}
+        <div className={styles.header_icons}>          
           <Image className={styles.click_icon} src={'/user.svg'} width={12} height={12} onClick={handleClick} alt="user.svg" />
           {/* логин форма */}
           {loginState && <Login handleLoginClick={handleLoginClick} />}
@@ -82,10 +74,9 @@ export default function Layout({ children }: PropsWithChildren) {
       <main className={[styles["main"], styles["container"]].join(" ")}>{children}</main>
 
       <footer className={styles.footer}>
-        {/* <div>&copy; 2023 Web studio</div>
-          <a href={`mailto:${FOOTER_EMAIL}`}>{FOOTER_EMAIL}</a> */}
+        
       </footer>
-      {/* </div> */}
+      
     </>
   );
 }

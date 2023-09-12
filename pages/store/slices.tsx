@@ -289,8 +289,6 @@ const cardSlice = createSlice({
 })
 
 
-
-
 // export const { setPage, setCard, setFilter, setUser, setCatalog, setCategories, setBooks, setError, setTotal, setQuantity } = filterSlice.actions;
 export const { setFilter} = filter1Slice.actions;
 export const { setPage, setCatalog, setCategories,  setError,setBooks } = workSlice.actions;
