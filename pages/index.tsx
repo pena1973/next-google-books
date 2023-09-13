@@ -5,11 +5,10 @@ import Book from "@/components/book/book";
 import { useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { RootState, useAppDispatch } from "@/pages/_app";
-// import styles from "../styles/style.css";
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { setPage, setCatalog, setCategories, setFilter, setBooks, setCard,setError,setTotal ,setQuantity } from '@/pages/store/slices';
-import { Item, ItemInCard } from '@/pages/store/slices'
-import { error } from "console";
+import { Item} from '@/pages/store/slices'
+
 import {recountCard,addtoCard,addNewCategories,addtoCatalogNewItems} from '@/pages/store/util'
 
 // let books =[
@@ -55,7 +54,7 @@ export default function Home() {
     return state.workSlice.catalog;
   })
   let filter = useSelector((state: RootState) => {
-    return state.filter1Slice.filter;
+    return state.filterSlice.filter;
   })
 
   const categories = useSelector((state: RootState) => {
@@ -82,7 +81,6 @@ export default function Home() {
 
   let catrgoriesReactNodes = categories.map(
     element => (
-      //  <li className="catalog-menu-nav-item" data-category={element} key={element} ><a href="#">{element}</a></li>
       <li className={`catalog-menu-nav-item ${(element === filter) ? "active" : ""}`} data-category={element} key={element} onClick={(e) => handleClickCategory(e)}>{element}</li>
     )
   )

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Open+Sans&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Open+Sans&display=swap'); */
 /* font-family: 'Montserrat', sans-serif; */
 /* 
 /* ГЛОБАЛЬНЫЕ СТИЛИ */
@@ -27,6 +27,12 @@
 
 /* КЛАССЫ */
 .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.container1 {
     max-width: 1440px;
     margin: 0 auto;
     background-color: rgba(255, 255, 255, 1);
@@ -106,9 +112,9 @@
     right: -5px;
 }
 
-.header_icons_item_user {
+/* .header_icons_item_user {
     position: relative;
-}
+} */
 
 .header_login_title {
 

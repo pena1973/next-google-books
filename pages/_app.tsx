@@ -5,7 +5,7 @@ import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux'
-import { authSlice, cardSlice, filter1Slice, workSlice } from './store/slices';
+import { authSlice, cardSlice, filterSlice, workSlice } from './store/slices';
 import {
   persistReducer,
   persistStore,
@@ -23,7 +23,7 @@ export const rootReducer = combineReducers({
 
   authSlice: authSlice.reducer,
   cardSlice: cardSlice.reducer,
-  filter1Slice: filter1Slice.reducer,
+  filterSlice: filterSlice.reducer,
   workSlice: workSlice.reducer
 });
 
@@ -31,7 +31,7 @@ export const rootReducer = combineReducers({
 const persistConfig = {
   key: 'myPersistKeyword',
   storage: storage,
-  whitelist: ['authSlice', 'cardSlice', 'filter1Slice']
+  whitelist: ['authSlice', 'cardSlice', 'filterSlice']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

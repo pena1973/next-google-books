@@ -1,16 +1,17 @@
 import { Montserrat } from 'next/font/google';
-import Image from 'next/image'
-import { PropsWithChildren } from "react";
-import Link from 'next/link';
 import styles from "./layout.module.css";
+
+import Image from 'next/image'
+import Link from 'next/link';
 import Head from "next/head";
+
+import { PropsWithChildren,useState } from "react";
+import { useSelector } from 'react-redux';
 import {useRouter } from 'next/navigation';
 import { RootState } from "@/pages/_app";
 
-import Navigation from "../navigation/navigation";
-import Login from "../login/login";
-import {useState } from "react";
-import { useSelector } from 'react-redux';
+import Navigation from "@/components/navigation/navigation";
+import Login from "@/components/login/login";
 
 // не понимаю где в своем проекте я могу это применить если все шрифты расставлены в стилях и они разные
   const font = Montserrat({
@@ -51,13 +52,12 @@ export default function Layout({ children }: PropsWithChildren) {
         <title>Bookshop</title>
         <meta name="description" content="Bookshop Next.js project" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.png" />
-        
+        <link rel="icon" href="/favicon.png" />        
+        <meta name="author" content="Natalia" />
       </Head>
-      <header className="header container">
+      <header className={[styles["header"], styles["container"]].join(" ")}>
         <Link href="/" className={styles.header_logo}>Bookshop</Link>
         <Navigation />
-
         <div className={styles.header_icons}>          
           <Image className={styles.click_icon} src={'/user.svg'} width={12} height={12} onClick={handleClick} alt="user.svg" />
           {/* логин форма */}
@@ -71,7 +71,7 @@ export default function Layout({ children }: PropsWithChildren) {
       </header>
 
 
-      <main className={[styles["main"], styles["container"]].join(" ")}>{children}</main>
+      <main className={[styles["main"], styles["container1"]].join(" ")}>{children}</main>
 
       <footer className={styles.footer}>
         

@@ -26,7 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     //  загруз книг по 6 и  выдача 
-    const { subject, page } = req.query;
+    const { subject, page } = req.query; //забираю параметры
+    
     // На пропущеную категорию не прроеряю поскольку 
     // апи вообще не смотрит на категорию при загрузке, и получается ерунда
     //  if (!req.query.subject) {        

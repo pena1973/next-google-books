@@ -2,11 +2,11 @@ import Image from 'next/image'
 import arrow from "./arrow.svg";
 import { PropsWithChildren } from "react";
 import styles from "./slider.module.css";
-import { usePathname } from 'next/navigation'
-import { useContext, useEffect, useState } from "react";
+import {useState } from "react";
 import url1 from "./slide1.jpg"
 import url2 from "./slide2.jpg"
 import url3 from "./slide3.jpg"
+
 // слайдер
 let images = [{
   id: 1,
@@ -22,14 +22,6 @@ let images = [{
   title: "slide3"
 },];
 
-// настройки слайдера
-
-let options = {
-  dots: true,
-  titles: true,
-  autoplay: false,
-  autoplayInterval: 5000
-};
 
 export default function Slider({ children }: PropsWithChildren) {
   // состояние слайдера
@@ -38,6 +30,11 @@ export default function Slider({ children }: PropsWithChildren) {
     const div = e.target as HTMLDivElement;
     setSliderState(Number(div.dataset.id));    
   }
+
+  setTimeout(() => {
+    setSliderState((sliderState===2)? 0:sliderState+1);     
+  }, 5000);
+
   return (
     <section>
       <div className={styles.slider}>
