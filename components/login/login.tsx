@@ -1,5 +1,7 @@
 
 import styles from "./login.module.css";
+import  API_URL  from '@/const';
+
 import { useRouter } from 'next/navigation';
 import { setMail, setName, setAbout, setPass } from '@/pages/store/slices';
 import { useAppDispatch } from "@/pages/_app";
@@ -19,8 +21,12 @@ export default function Login(
     // приведение типа    
     let login = (e.currentTarget.parentElement?.children[2] as HTMLInputElement).value;
     let pass = (e.currentTarget.parentElement?.children[4] as HTMLInputElement).value;
+    
+    let _url = API_URL;    
+    if (!_url) _url = "http://localhost:3000";    
+     _url = _url.concat((_url[_url.length - 1]==="/")?"":"/");
 
-    const res = await fetch("http://localhost:3000/api/auth", {
+    const res = await fetch(_url+"api/auth", {
       method: "POST",
       headers: {
         Accept: "application/json",
