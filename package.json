@@ -7,7 +7,8 @@
     "build": "next build",    
     "start": "next start",
     "lint": "next lint",
-    "debug": "cross-env NODE_OPTIONS='--inspect' next dev"
+    "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "local": "env-cmd -f environments/.env.local node server.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",

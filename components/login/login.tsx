@@ -1,6 +1,6 @@
 
 import styles from "./login.module.css";
-import  API_URL  from '@/const';
+import  {API_URL}  from '@/const';
 
 import { useRouter } from 'next/navigation';
 import { setMail, setName, setAbout, setPass } from '@/pages/store/slices';
@@ -23,7 +23,8 @@ export default function Login(
     let pass = (e.currentTarget.parentElement?.children[4] as HTMLInputElement).value;
     
     let _url = API_URL;    
-    if (!_url) _url = "http://localhost:3000";    
+       // if (!_url) _url = "http://localhost:3000";    
+       if (!_url) _url = "";   
      _url = _url.concat((_url[_url.length - 1]==="/")?"":"/");
 
     const res = await fetch(_url+"api/auth", {

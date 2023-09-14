@@ -1,4 +1,4 @@
-import  API_URL  from '@/const';
+import  {API_URL}  from '@/const';
 import Layout from "@/components/layout/layout";
 import Slider from "@/components/slider/slider";
 import Book from "@/components/book/book";
@@ -91,7 +91,8 @@ export default function Home() {
   const load = async () => {
     
     let _url = API_URL;    
-    if (!_url) _url = "http://localhost:3000";    
+    // if (!_url) _url = "http://localhost:3000";    
+    if (!_url) _url = "";    
      _url = _url.concat((_url[_url.length - 1]==="/")?"":"/");
 
     const res = await fetch(`${_url}/api/books?subject=${filter}&page=${page + 1}`);
