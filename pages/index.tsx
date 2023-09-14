@@ -7,9 +7,9 @@ import { useEffect } from "react";
 import { RootState, useAppDispatch } from "@/pages/_app";
 import { useRouter } from 'next/navigation';
 import { setPage, setCatalog, setCategories, setFilter, setBooks, setCard,setError,setTotal ,setQuantity } from '@/pages/store/slices';
-import { Item} from '@/pages/store/slices'
+import {Item} from '@/pages/store/slices'
 
-import {recountCard,addtoCard,addNewCategories,addtoCatalogNewItems} from '@/pages/store/util'
+import {recountCard,addtoCard,addNewCategories,addtoCatalogNewItems} from '@/utils/util'
 
 
 export default function Home() {

@@ -13,7 +13,7 @@ export type Item = {
     categories: string[],
 }
 
-export type ItemInCard = {
+export type ItemInCard = {    
     book: Item
     count: number,
     delivery: string,
@@ -181,7 +181,7 @@ const cardSlice = createSlice({
     },
 
 })
-
+export default function Foo(){return<></>}  // пустышка для билда
 
 export const { setFilter} = filterSlice.actions;
 export const { setPage, setCatalog, setCategories,  setError,setBooks } = workSlice.actions;

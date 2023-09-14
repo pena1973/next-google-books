@@ -5,43 +5,7 @@ import { ItemInCard } from '@/pages/store/slices'
 import { useSelector } from 'react-redux';
 import { setTotal, setQuantity, setCard } from '@/pages/store/slices';
 import { RootState, useAppDispatch } from "@/pages/_app";
-import { recountCard, addtoCard, deletefromCard, sortCard } from '@/pages/store/util'
-
-let card = [
-  {
-    id: 1,
-    autor: "Kevin Kwan",
-    name: "Crazy rich asians",
-    stars: 5,
-    review: 230,
-    price: 4.55,
-    count: 1,
-    url: "/book.jpg",
-    delivery: 'shipping',
-  },
-  {
-    id: 2,
-    autor: "Kevin Kwan",
-    name: "Crazy rich asians",
-    stars: 2,
-    review: 200,
-    price: 4.55,
-    count: 1,
-    url: "/book1.png",
-    delivery: 'shipping',
-  },
-  {
-    id: 3,
-    autor: "Kevin Kwan",
-    name: "Crazy rich asians",
-    stars: 3,
-    review: 152,
-    price: 4.55,
-    count: 1,
-    url: "/book2.png",
-    delivery: 'shipping',
-  }
-];
+import { recountCard, addtoCard, deletefromCard, sortCard } from '@/utils/util'
 
 
 export default function Card(
