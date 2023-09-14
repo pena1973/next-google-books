@@ -11,33 +11,6 @@ import { Item} from '@/pages/store/slices'
 
 import {recountCard,addtoCard,addNewCategories,addtoCatalogNewItems} from '@/pages/store/util'
 
-// let books =[
-//   {id:1,
-//   autor:"Kevin Kwan",
-//   name:"Crazy rich asians",
-//   stars: 5,
-//   review:230,  
-//   description:"the outrageously funny debut novel  about three super-rich, pedigreed Chinese families and the gossip...",
-//   price: 44.50,
-//   url:"/book.jpg"
-// }, 
-//   {id:2,
-//   autor:"Kevin Kwan",
-//   name:"Crazy rich asians",
-//   stars: 2,
-//   review:200,  
-//   description:"the outrageously funny debut novel  about three super-rich, pedigreed Chinese families and the gossip...",
-//   price: 124.50,
-//   url:"/book1.png"},
-//   {id:3,
-//     autor:"Kevin Kwan",
-//     name:"Crazy rich asians",
-//     stars: 3,
-//     review:152,  
-//     description:"the outrageously funny debut novel  about three super-rich, pedigreed Chinese families and the gossip...",
-//     price: 4.50,
-//     url:"/book2.png"}      
-// ];
 
 export default function Home() {
   const { push } = useRouter();

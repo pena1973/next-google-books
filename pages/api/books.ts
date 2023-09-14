@@ -109,10 +109,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         item.categories = element?.volumeInfo?.categories;
-        
-        if (item.categories.length==0) {            
-            item.categories = ['Whithout category']
-        } 
+        if (!item.categories) item.categories = ['Whithout category']; 
         
         item.categories.forEach(category => {
             if (!categories.includes(category)) 
