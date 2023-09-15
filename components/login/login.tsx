@@ -22,10 +22,8 @@ export default function Login(
     let login = (e.currentTarget.parentElement?.children[2] as HTMLInputElement).value;
     let pass = (e.currentTarget.parentElement?.children[4] as HTMLInputElement).value;
     
-    let _url = API_URL;    
-       // if (!_url) _url = "http://localhost:3000";    
-       if (!_url) _url = "";   
-     _url = _url.concat((_url[_url.length - 1]==="/")?"":"/");
+    let _url = String(API_URL);
+    _url = _url.concat((_url[_url.length - 1] === "/") ? "" : "/");
 
     const res = await fetch(_url+"api/auth", {
       method: "POST",

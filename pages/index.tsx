@@ -1,4 +1,4 @@
-import  {API_URL}  from '@/const';
+import { API_URL } from '@/const';
 import Layout from "@/components/layout/layout";
 import Slider from "@/components/slider/slider";
 import Book from "@/components/book/book";
@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { RootState, useAppDispatch } from "@/pages/_app";
 import { useRouter } from 'next/navigation';
-import { setPage, setCatalog, setCategories, setFilter, setBooks, setCard,setError,setTotal ,setQuantity } from '@/pages/store/slices';
-import {Item} from '@/pages/store/slices'
+import { setPage, setCatalog, setCategories, setFilter, setBooks, setCard, setError, setTotal, setQuantity } from '@/pages/store/slices';
+import { Item } from '@/pages/store/slices'
 
-import {recountCard,addtoCard,addNewCategories,addtoCatalogNewItems} from '@/utils/util'
+import { recountCard, addtoCard, addNewCategories, addtoCatalogNewItems } from '@/utils/util'
 
 
 export default function Home() {
@@ -37,10 +37,10 @@ export default function Home() {
   const card = useSelector((state: RootState) => {
     return state.cardSlice.card;
   })
-  const error= useSelector((state: RootState) => {
+  const error = useSelector((state: RootState) => {
     return state.workSlice.error;
   })
-  const message= useSelector((state: RootState) => {
+  const message = useSelector((state: RootState) => {
     return state.workSlice.message;
   })
 
@@ -60,12 +60,12 @@ export default function Home() {
 
   const onBuy = (book: Item) => {
 
-    let newCard =  addtoCard(card,book)
-  
-      dispatch(setCard(newCard))
-      const {quantity,total} = recountCard(newCard);
-      dispatch(setQuantity(quantity));
-      dispatch(setTotal(total));    
+    let newCard = addtoCard(card, book)
+
+    dispatch(setCard(newCard))
+    const { quantity, total } = recountCard(newCard);
+    dispatch(setQuantity(quantity));
+    dispatch(setTotal(total));
   };
 
   const handleClickCategory = (e: React.MouseEvent<HTMLElement>) => {
@@ -78,34 +78,31 @@ export default function Home() {
       child?.classList.remove('active');
     }
     li.classList.add("active");
-    handleFilter(filter,catalog);
+    handleFilter(filter, catalog);
   }
 
-  const handleFilter = (filter: string,commonCatalog:Item[]) => {
+  const handleFilter = (filter: string, commonCatalog: Item[]) => {
     // здесь передать состояние переключателя в редукс  
     dispatch(setFilter(filter));
-    let newbooks = commonCatalog.filter((e) => {return(e.categories.includes(filter))});
+    let newbooks = commonCatalog.filter((e) => { return (e.categories.includes(filter)) });
     dispatch(setBooks(newbooks));
   }
 
   const load = async () => {
-    
-    let _url = API_URL;    
-    // if (!_url) _url = "http://localhost:3000";    
-    if (!_url) _url = "";    
-     _url = _url.concat((_url[_url.length - 1]==="/")?"":"/");
 
+    let _url = String(API_URL);
+    _url = _url.concat((_url[_url.length - 1] === "/") ? "" : "/");
     const res = await fetch(`${_url}/api/books?subject=${filter}&page=${page + 1}`);
 
     if (res.status !== 200) {
-      dispatch(setError(`Стаmус ${res.status}`))      
+      dispatch(setError(`Стаmус ${res.status}`))
 
     } else {
       const receivedData = await res.json();
       if (!receivedData.error) {
 
-        let commonCategories =  addNewCategories(categories, receivedData.categories)
-        let commonCatalog =  addtoCatalogNewItems(catalog, receivedData.books)
+        let commonCategories = addNewCategories(categories, receivedData.categories)
+        let commonCatalog = addtoCatalogNewItems(catalog, receivedData.books)
 
         dispatch(setPage(page + 1));
         dispatch(setCatalog(commonCatalog));
@@ -116,7 +113,7 @@ export default function Home() {
           filter = commonCategories[0];
           // прорисуем 
         }
-        handleFilter(filter,commonCatalog);
+        handleFilter(filter, commonCatalog);
       }
       else {
         push('/404');
